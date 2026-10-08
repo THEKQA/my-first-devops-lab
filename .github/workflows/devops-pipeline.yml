@@ -1,0 +1,23 @@
+name: DevOps Automated Build
+
+# Step 1: Tell GitHub WHEN to run this automation
+on:
+  push:
+    branches: [ "main" ]
+
+# Step 2: Tell GitHub WHAT actions to take
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Runs on a fresh, free cloud server provided by GitHub
+
+    steps:
+    - name: Check out our code
+      uses: actions/checkout@v4
+
+    - name: Verify Docker environment
+      run: docker --version
+
+    - name: Automatically Build Our Custom Docker Image
+      run: |
+        cd custom-web-app
+        docker build -t test-web-image:latest .
